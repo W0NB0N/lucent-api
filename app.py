@@ -16,7 +16,15 @@ import json
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(
+    app,
+    resources={r"/*": {"origins": [
+        "https://lucent-fintech-frontend-jmsf.vercel.app",
+        "http://localhost:3000"  # optional: for local dev testing
+    ]}},
+    supports_credentials=True,
+    allow_headers=["Content-Type", "Authorization"]
+)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "your-secret-key"  # Change to secure secret
